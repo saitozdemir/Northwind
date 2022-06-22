@@ -3,20 +3,30 @@ package kodlamaio.northwind.entities.concretes;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
 @Entity
 @Table(name="products")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="ProductID")
 	private int id;
 	
-	@Column(name="CategoryID")
-	private int categoryId;
+	//@Column(name="CategoryID")
+	//private int categoryId;
 	
 	@Column(name="ProductName")
 	private String productName;
@@ -30,7 +40,11 @@ public class Product {
 	@Column(name="QuantityPerUnit")
 	private String quantityPerUnit;
 	
-	public Product() {
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category category;
+	
+	/*public Product() {
 		
 	}
 	public Product(int id, int categoryId, String productName, double unitPrice, short unitsInStock,
@@ -42,7 +56,7 @@ public class Product {
 		this.unitPrice = unitPrice;
 		this.unitsInStock = unitsInStock;
 		this.quantityPerUnit = quantityPerUnit;
-	}
+	}*/
 	public int getId() {
 		return id;
 	}
